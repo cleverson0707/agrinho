@@ -1,0 +1,30 @@
+
+---
+
+## ✅ Arquivo `models.py` — Define a Classe `Task`
+
+```python
+import uuid
+from datetime import datetime
+
+class Task:
+    def __init__(self, description, completed=False):
+        self.id = str(uuid.uuid4())
+        self.description = description
+        self.completed = completed
+        self.created_at = datetime.now().isoformat()
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "description": self.description,
+            "completed": self.completed,
+            "created_at": self.created_at
+        }
+
+    @staticmethod
+    def from_dict(data):
+        task = Task(data['description'], data['completed'])
+        task.id = data['id']
+        task.created_at = data['created_at']
+        return task
